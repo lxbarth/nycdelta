@@ -1,3 +1,5 @@
+#! /usr/local/bin/python2.7
+
 from xml.etree.ElementTree import ElementTree
 from datetime import datetime
 import time
@@ -18,7 +20,13 @@ nodeidx = {}
 print 'mapping nodes'
 
 for n in tree.iterfind('node'):
-    if (n.attrib.has_key('user')):
+    building = False
+    for t in n.iterfind('tag'):
+        if (t.get('k', '') == 'building'):
+            building = True
+            break
+
+    if (building && n.attrib.has_key('user')):
         pt = {
             "type": "Feature",
             "geometry": {
