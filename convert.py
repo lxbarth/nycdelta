@@ -60,6 +60,7 @@ for n in tree.iterfind('node'):
                 "version": n.attrib['version'],
                 "timestamp": time.mktime(datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').utctimetuple()),
                 "datetime": datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').strftime('%b %d %I:%M %p'),
+                "changeset": n.attrib['changeset'],
                 "comment": comment
             }
         }
