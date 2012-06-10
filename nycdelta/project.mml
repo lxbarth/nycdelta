@@ -1,14 +1,14 @@
 {
   "bounds": [
-    -180,
-    -85.05112877980659,
-    180,
-    85.05112877980659
+    -74.2552,
+    40.5973,
+    -73.8103,
+    40.926
   ],
   "center": [
-    0,
-    0,
-    2
+    -74.0362,
+    40.7727,
+    11
   ],
   "format": "png",
   "interactivity": {
@@ -23,7 +23,7 @@
     "template_full": "{{{datetime}}} <a href='http://www.openstreetmap.org/user/{{{user}}}'>{{{user}}}</a>\n<div class='comment'><a href='http://www.openstreetmap.org/browse/changeset/11855020/{{{changeset}}}'>{{{changeset}}}</a>: {{{comment}}}</div>"
   },
   "minzoom": 0,
-  "maxzoom": 22,
+  "maxzoom": 17,
   "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
   "Stylesheet": [
     "style.mss"
@@ -44,8 +44,9 @@
       "name": "nyc2012"
     }
   ],
-  "name": "",
+  "name": "NYC Delta",
   "description": "",
   "_basemap": "http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp",
-  "legend": "<h2>OpenStreetMap: Changes to building footprints in New York City area</h2>\n\nJanuary 1st, 2012 - May 9th, 2012"
+  "legend": "<h2>OpenStreetMap: Changes to building footprints in New York City area</h2>\n\nJanuary 1st, 2012 - May 9th, 2012",
+  "attribution": "OpenStreetMap contributors"
 }
