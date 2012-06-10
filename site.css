@@ -73,6 +73,8 @@ table { border-collapse: collapse; border-spacing: 0; }
  h6,
  p { margin:0px 0px 10px; }
 
+ b { font-weight: bold;}
+
 /* ### General control styles ### */
  .close,
  .share,
@@ -731,3 +733,7 @@ a.zoomer {
     font-size: 15px;
     line-height: 20px;
   }
+.attribution {
+  font-style: italic;
+  font-size: 12px;
+}
