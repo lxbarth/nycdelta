@@ -1,5 +1,3 @@
-#! /usr/local/bin/python2.7
-
 from xml.etree.ElementTree import ElementTree, fromstring
 from datetime import datetime
 import time
