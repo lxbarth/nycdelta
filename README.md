@@ -15,7 +15,7 @@ Thanks to [Tom](http://mapbox.com/team/tom-macwright/) for providing [a great he
 Requires [Python 2.7](http://www.python.org/getit/releases/2.7/) and [TileMill](http://mapbox.com/tilemill/).
 
 *Assumes you would like to update the map to show any building footprints
-changed after 2012-01-01*
+changed after 2012-01-01 in NYC area*
 
 1) Run
 
@@ -26,6 +26,7 @@ changed after 2012-01-01*
 
 ## Todo
 
+- Pass in feature types as argument to convert.py
 - Shapefile conversion of all edited buildings
 - Don't show edits outside of NYC
 - Clean up style.css
