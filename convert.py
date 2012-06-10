@@ -7,15 +7,16 @@ from sys import argv
 import json
 tree = ElementTree()
 
-if (len(argv) < 3):
-    print "specify an input & output filename, and year. input is osm, output is geojson"
+if (len(argv) < 4):
+    print "specify an input & output filename, and start date (YYYY-MM-DD). input is osm, output is geojson"
     exit()
 
 tree.parse(argv[1])
 
+fromtimestamp = time.mktime(datetime.strptime(argv[3], '%Y-%m-%d').utctimetuple())
 geojson = { "type": "FeatureCollection", "features": [] }
-
 nodeidx = {}
+num = 0
 
 print 'mapping nodes'
 
@@ -26,7 +27,10 @@ for n in tree.iterfind('node'):
             building = True
             break
 
-    if (building && n.attrib.has_key('user')):
+    timestamp = time.mktime(datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').utctimetuple())
+
+    if (timestamp > fromtimestamp and building and n.attrib.has_key('user')):
+        num = num + 1
         pt = {
             "type": "Feature",
             "geometry": {
@@ -36,9 +40,12 @@ for n in tree.iterfind('node'):
             "properties": {
                 "user": n.attrib['user'],
                 "version": n.attrib['version'],
-                "timestamp": time.mktime(datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').utctimetuple())
+                "timestamp": time.mktime(datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').utctimetuple()),
+                "datetime": datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').strftime('%b %d %I:%M%p')
             }
         }
         geojson['features'].append(pt)
+
+print "Converted %s nodes" % num
 
 json.dump(geojson, open(argv[2], 'w'))
