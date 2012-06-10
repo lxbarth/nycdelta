@@ -20,7 +20,7 @@
       "changeset",
       "comment"
     ],
-    "template_full": "{{{datetime}}} <a href='http://www.openstreetmap.org/user/{{{user}}}'>{{{user}}}</a>\n<div class='comment'><a href='http://www.openstreetmap.org/browse/changeset/11855020/{{{changeset}}}'>{{{changeset}}}</a>: {{{comment}}}</div>"
+    "template_full": "<div class='by'>{{{datetime}}} <a href='http://www.openstreetmap.org/user/{{{user}}}'>{{{user}}}</a></div>\n<div class='comment'><a href='http://www.openstreetmap.org/browse/changeset/{{{changeset}}}'>{{{changeset}}}</a>: {{{comment}}}</div>"
   },
   "minzoom": 0,
   "maxzoom": 17,
@@ -47,6 +47,6 @@
   "name": "NYC Delta",
   "description": "",
   "_basemap": "http://a.tiles.mapbox.com/v3/mapbox.mapbox-streets.jsonp",
-  "legend": "<h2>OpenStreetMap: Changes to building footprints in New York City area</h2>\n\nJanuary 1st, 2012 - May 9th, 2012",
+  "legend": "<div class='inner'>\n<h2>OpenStreetMap: Changes to building footprints in New York City area</h2>\n<div class='date'>January 1st, 2012 - May 9th, 2012</div>\n</div>",
   "attribution": "OpenStreetMap contributors"
 }
