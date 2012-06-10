@@ -1,10 +1,12 @@
 #! /usr/local/bin/python2.7
 
-from xml.etree.ElementTree import ElementTree
+from xml.etree.ElementTree import ElementTree, fromstring
 from datetime import datetime
 import time
 from sys import argv
 import json
+import httplib
+
 tree = ElementTree()
 
 if (len(argv) < 4):
@@ -21,6 +23,8 @@ num = 0
 print 'mapping nodes'
 
 for n in tree.iterfind('node'):
+
+    # We're only interested in buildings
     building = False
     for t in n.iterfind('tag'):
         if (t.get('k', '') == 'building'):
@@ -31,6 +35,20 @@ for n in tree.iterfind('node'):
 
     if (timestamp > fromtimestamp and building and n.attrib.has_key('user')):
         num = num + 1
+
+        # Get comment from changeset
+        comment = ''
+        conn = httplib.HTTPConnection("api.openstreetmap.org")
+        conn.request('GET', '/api/0.6/changeset/%s' % n.attrib['changeset'])
+        response = conn.getresponse()
+        if (response.status != 200):
+            exit('OSM API seems to be down (HTTP response status %s). Try again later.' % response.status)
+        changeset = fromstring(response.read()).iterfind('changeset').next()
+        conn.close()
+        for t in changeset.iterfind('tag'):
+            if (t.get('k', '') == 'comment'):
+                comment = t.get('v')
+
         pt = {
             "type": "Feature",
             "geometry": {
@@ -41,7 +59,8 @@ for n in tree.iterfind('node'):
                 "user": n.attrib['user'],
                 "version": n.attrib['version'],
                 "timestamp": time.mktime(datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').utctimetuple()),
-                "datetime": datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').strftime('%b %d %I:%M %p')
+                "datetime": datetime.strptime(n.attrib['timestamp'], '%Y-%m-%dT%H:%M:%SZ').strftime('%b %d %I:%M %p'),
+                "comment": comment
             }
         }
         geojson['features'].append(pt)
